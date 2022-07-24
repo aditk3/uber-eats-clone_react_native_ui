@@ -8,7 +8,7 @@ const CartItem = ({ dish }) => {
                 <Text>1</Text>
             </View>
 
-            <Text style={[styles.name, { fontSize: 16 }]}>
+            <Text style={[styles.name, { fontSize: 16 }]} numberOfLines={1}>
                 {dish.name}
             </Text>
 
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 10,
+        marginHorizontal:20
     },
     name: {
         fontSize: 18,

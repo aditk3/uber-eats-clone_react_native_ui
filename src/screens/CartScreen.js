@@ -19,7 +19,7 @@ const CartScreen = () => {
             <FlatList
                 data={restaurant.dishes}
                 showsVerticalScrollIndicator={false}
-                style={{ flex: 2 }}
+                style={{ flex: 2, marginHorizontal: -20 }}
                 renderItem={({ item }) => (<CartItem dish={item} />)} />
 
             <View style={{ backgroundColor: 'lightgrey', height: 1, marginBottom: 15 }} />

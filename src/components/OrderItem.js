@@ -5,10 +5,10 @@ import tw from 'twrnc'
 const OrderItem = ({ order }) => {
     return (
         <View>
-            <View style={{ flexDirection: 'row', margin: 10 }}>
+            <View style={{ flexDirection: 'row', margin: 10, marginHorizontal:20 }}>
                 <Image
                     source={{ uri: order.Restaurant.image }}
-                    style={{ width: 75, height: 75, marginRight: 10 }}
+                    style={{ width: 75, height: 75, marginRight: 10, borderRadius: 3 }}
                 />
 
                 <View style={{ justifyContent: 'center' }}>
@@ -20,7 +20,7 @@ const OrderItem = ({ order }) => {
                 </View>
             </View>
 
-            <View style={{ backgroundColor: 'lightgrey', height: 1, margin:10 }} />
+            <View style={{ backgroundColor: 'lightgrey', height: 1, margin:10, marginHorizontal:20 }} />
         </View>
     )
 }
