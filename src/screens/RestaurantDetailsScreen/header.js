@@ -1,4 +1,4 @@
-import { Entypo, FontAwesome } from '@expo/vector-icons'
+import { Entypo } from '@expo/vector-icons'
 import React from 'react'
 import { Image, Text, View } from 'react-native'
 
@@ -31,5 +31,3 @@ const RestaurantHeader = ({ restaurant }) => {
 }
 
 export default RestaurantHeader
-
-

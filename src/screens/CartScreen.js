@@ -1,17 +1,14 @@
-import { AntDesign, Ionicons } from '@expo/vector-icons';
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
-import restaurants from '../../assets/data/restaurants.json'
-import Separator from '../components/Separator';
-import { FlatList } from 'react-native-web';
+import restaurants from '../../assets/data/restaurants.json';
 import CartItem from '../components/CartItem';
+import Separator from '../components/Separator';
 
 const restaurant = restaurants[1]
 
 const CartScreen = () => {
-    const [quantity, setQuantity] = useState(1)
-
     return (
         <View style={styles.page}>
             <Ionicons name="arrow-back" size={30} color="black" style={{ paddingVertical: 20 }} />
@@ -20,23 +17,21 @@ const CartScreen = () => {
 
             <Text style={[styles.yourItemsText, { paddingVertical: 10 }]}>Your items</Text>
 
-            <CartItem />
+            <FlatList
+                data={restaurant.dishes}
+                showsVerticalScrollIndicator={false}
+                style={{ flex: 2 }}
+                renderItem={({ item }) => (<CartItem dish={item} />)} />
 
             <Separator />
 
             <View style={styles.totalsRow}>
-                <Text style={styles.totalsText}>
-                    Sub total:
-                </Text>
-
+                <Text style={styles.totalsText}>Sub total:</Text>
                 <Text style={{ marginLeft: 'auto', fontSize: 16 }}>$12.95</Text>
             </View>
 
             <View style={styles.totalsRow}>
-                <Text style={styles.totalsText}>
-                    Total:
-                </Text>
-
+                <Text style={styles.totalsText}>Total:</Text>
                 <Text style={{ marginLeft: 'auto', fontSize: 16 }}>$12.95</Text>
             </View>
 
@@ -77,8 +72,6 @@ const styles = StyleSheet.create({
     quantityContainer: {
         backgroundColor: 'rgb(228,228,228)',
         paddingHorizontal: 10,
-        // width: 25,
-        // height: 25,
         marginRight: 10,
         borderRadius: 5,
         paddingVertical: 5,

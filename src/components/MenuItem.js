@@ -4,13 +4,13 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 const MenuItem = ({ dish }) => {
     return (
         <View style={styles.container}>
-            <View style={{flex:1}}>
+            <View style={{ flex: 1 }}>
                 <Text style={styles.name}>{dish.name}</Text>
                 <Text style={styles.description} numberOfLines={2}>{dish.description}</Text>
                 <Text style={styles.price}>${dish.price}</Text>
             </View>
 
-            {dish.image && (<Image source={{uri:dish.image}} style={styles.image}/>) }
+            {dish.image && (<Image source={{ uri: dish.image }} style={styles.image} />)}
         </View>
     )
 }
@@ -40,5 +40,6 @@ const styles = StyleSheet.create({
     image: {
         height: 80,
         aspectRatio: 1,
+        borderRadius: 5,
     },
 })

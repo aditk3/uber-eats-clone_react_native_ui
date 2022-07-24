@@ -9,10 +9,9 @@ import CartScreen from './src/screens/CartScreen';
 export default function App() {
     return (
         <View style={styles.container}>
-
             <CartScreen />
 
-            <StatusBar style='light' />
+            <StatusBar style='auto' />
         </View>
     );
 }

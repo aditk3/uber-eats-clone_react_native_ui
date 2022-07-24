@@ -1,5 +1,5 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { Image, StyleSheet, Text, View } from 'react-native'
 
 const RestrauntItem = ({ restaurant }) => {
     return (
@@ -14,7 +14,7 @@ const RestrauntItem = ({ restaurant }) => {
                 </View>
 
                 <View style={styles.rating}>
-                    <Text style={{color:'white'}}>{restaurant.rating}</Text>
+                    <Text style={{ color: 'white' }}>{restaurant.rating}</Text>
                 </View>
             </View>
 

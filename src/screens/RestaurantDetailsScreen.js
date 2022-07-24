@@ -6,7 +6,7 @@ import MenuItem from '../components/MenuItem'
 import RestaurantHeader from './RestaurantDetailsScreen/header'
 import styles from './RestaurantDetailsScreen/styles'
 
-const restaurant = restaurants[0]
+const restaurant = restaurants[1]
 
 const RestaurantDetailsScreen = () => {
     return (
