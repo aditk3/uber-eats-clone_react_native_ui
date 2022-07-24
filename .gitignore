@@ -126,7 +126,7 @@ gradle-app.setting
 ### ReactNative.Node Stack ###
 # Logs
 logs
-npm-debug.log*
+npm-debug.*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
@@ -214,7 +214,7 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+dist/
 
 # Gatsby files
 .cache/
@@ -344,6 +344,18 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+
+### MORE ###
+
+
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
 
 ### Gradle ###
 
