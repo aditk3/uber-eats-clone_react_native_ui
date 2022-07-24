@@ -9,14 +9,13 @@ const RestaurantHeader = ({ restaurant }) => {
         <View style={styles.page}>
             <Image source={{ uri: restaurant.image, }} style={styles.image} resizeMode='cover' />
 
-            <View style={{padding: 20}}>
+            <View style={{ padding: 20 }}>
                 <Text style={styles.title}>{restaurant.name}</Text>
 
                 <View style={styles.subtitleContainer}>
-                    <Text style={styles.subtitle}>$ </Text>
-                    <FontAwesome name="circle" size={7} color="black" />
+                    <Text style={styles.subtitle}>$ &#8226; </Text>
 
-                    <View style={{ paddingLeft: 5, flexDirection: 'row', alignContent: 'center' }}>
+                    <View style={{ flexDirection: 'row', alignContent: 'center' }}>
                         <Entypo name="star" size={16} color="#rgb(253, 197, 56)" />
                         <Text style={styles.subtitle}>{restaurant.rating}</Text>
                     </View>

@@ -2,7 +2,7 @@ import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 
-import restaurants from '../../../assets/data/restaurants.json'
+import restaurants from '../../assets/data/restaurants.json'
 
 const dish = restaurants[1].dishes[2]
 
@@ -39,7 +39,9 @@ const MenuItemDetailedScreen = () => {
             </View>
 
             <View style={styles.confirmButton}>
-                <Text style={styles.confirmButtonText}>Add {quantity} to basket (${calculateTotal().toFixed(2)})</Text>
+                <Text style={styles.confirmButtonText}>
+                    Add {quantity} to basket &#8226; ${calculateTotal().toFixed(2)}
+                </Text>
             </View>
 
         </View>

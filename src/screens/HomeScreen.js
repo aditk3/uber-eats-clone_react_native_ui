@@ -1,7 +1,7 @@
 import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
-import RestrauntItem from '../../components/RestaurantItem';
+import RestrauntItem from '../components/RestaurantItem';
 
-import restaurants from '../../../assets/data/restaurants.json';
+import restaurants from '../../assets/data/restaurants.json';
 
 export default function HomeScreen() {
     return (
