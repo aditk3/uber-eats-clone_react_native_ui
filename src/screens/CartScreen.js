@@ -4,7 +4,6 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import restaurants from '../../assets/data/restaurants.json';
 import CartItem from '../components/CartItem';
-import Separator from '../components/Separator';
 
 const restaurant = restaurants[1]
 
@@ -23,7 +22,7 @@ const CartScreen = () => {
                 style={{ flex: 2 }}
                 renderItem={({ item }) => (<CartItem dish={item} />)} />
 
-            <Separator />
+            <View style={{ backgroundColor: 'lightgrey', height: 1, marginBottom: 15 }} />
 
             <View style={styles.totalsRow}>
                 <Text style={styles.totalsText}>Sub total:</Text>
