@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         paddingVertical: 40,
-        padding: 15
+        padding: 20
     },
     name: {
         fontSize: 30,

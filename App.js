@@ -4,13 +4,13 @@ import { StyleSheet, View } from 'react-native';
 import HomeScreen from './src/screens/HomeScreen';
 import RestaurantDetailsScreen from './src/screens/RestaurantDetailsScreen';
 import MenuItemDetailedScreen from './src/screens/MenuItemDetailedScreen';
+import CartScreen from './src/screens/CartScreen';
 
 export default function App() {
     return (
-
         <View style={styles.container}>
 
-            <MenuItemDetailedScreen />
+            <CartScreen />
 
             <StatusBar style='light' />
         </View>
