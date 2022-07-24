@@ -9,9 +9,9 @@ export default function App() {
 
         <View style={styles.container}>
             
-            <RestaurantDetailsScreen/>
+            <RestaurantDetailsScreen />
 
-            <StatusBar style='auto' />
+            <StatusBar style='light' />
         </View>
     );
 }
