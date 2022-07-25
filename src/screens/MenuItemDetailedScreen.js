@@ -1,12 +1,15 @@
 import { AntDesign, Ionicons } from '@expo/vector-icons';
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import restaurants from '../../assets/data/restaurants.json'
+import restaurants from '../../assets/data/restaurants.json';
 
-const dish = restaurants[1].dishes[2]
+const dish = restaurants[0].dishes[0]
 
 const MenuItemDetailedScreen = () => {
+    const navigation = useNavigation()
+
     const [quantity, setQuantity] = useState(1)
 
     const onMinus = () => {
@@ -25,7 +28,13 @@ const MenuItemDetailedScreen = () => {
 
     return (
         <View style={styles.page}>
-            <Ionicons name="arrow-back" size={30} color="black" style={{ paddingVertical: 20 }} />
+            <Ionicons
+                name="arrow-back"
+                size={30}
+                color="black"
+                onPress={() => navigation.goBack()}
+                suppressHighlighting={true}
+                style={{ paddingVertical: 20 }} />
 
             <Text style={styles.name}>{dish.name}</Text>
             <Text style={styles.description}>{dish.description}</Text>
@@ -38,11 +47,11 @@ const MenuItemDetailedScreen = () => {
                 <AntDesign name='pluscircleo' size={60} color='black' onPress={onPlus} suppressHighlighting={true} />
             </View>
 
-            <View style={styles.confirmButton}>
+            <Pressable onPress={()=>navigation.navigate("Cart") } style={styles.confirmButton}>
                 <Text style={styles.confirmButtonText}>
                     Add {quantity} to basket &#8226; ${calculateTotal().toFixed(2)}
                 </Text>
-            </View>
+            </Pressable>
 
         </View>
     )

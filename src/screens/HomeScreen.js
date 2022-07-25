@@ -1,11 +1,11 @@
-import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
+import { FlatList, View, StyleSheet } from 'react-native';
 import RestrauntItem from '../components/RestaurantItem';
 
 import restaurants from '../../assets/data/restaurants.json';
 
 export default function HomeScreen() {
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <FlatList
                 data={restaurants}
                 keyExtractor={(item) => item.id}
@@ -14,12 +14,13 @@ export default function HomeScreen() {
                     <RestrauntItem restaurant={item} />
                 )}
             />
-        </SafeAreaView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         marginHorizontal: 10,
+        paddingTop:35
     }
 })

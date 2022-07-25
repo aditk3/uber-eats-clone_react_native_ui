@@ -1,9 +1,12 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 const MenuItem = ({ dish }) => {
+    const navigation = useNavigation()
+
     return (
-        <View style={styles.container}>
+        <Pressable onPress={() => navigation.navigate("MenuItem", { id: dish.id })} style={styles.container}>
             <View style={{ flex: 1 }}>
                 <Text style={styles.name}>{dish.name}</Text>
                 <Text style={styles.description} numberOfLines={2}>{dish.description}</Text>
@@ -11,7 +14,7 @@ const MenuItem = ({ dish }) => {
             </View>
 
             {dish.image && (<Image source={{ uri: dish.image }} style={styles.image} />)}
-        </View>
+        </Pressable>
     )
 }
 
