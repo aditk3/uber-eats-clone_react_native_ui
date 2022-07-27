@@ -1,9 +1,9 @@
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useState, useEffect } from 'react';
 import { DataStore } from 'aws-amplify';
-import { Dish } from '../models';
+import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Dish } from '../models';
 
 const MenuItemDetailedScreen = () => {
     const navigation = useNavigation();

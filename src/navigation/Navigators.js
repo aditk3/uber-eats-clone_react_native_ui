@@ -1,25 +1,33 @@
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { FontAwesome5, Foundation, MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Foundation, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 
-import HomeScreen from "../screens/HomeScreen";
-import OrdersScreen from '../screens/OrdersScreen';
-import RestaurantDetailsScreen from '../screens/RestaurantDetailsScreen';
-import MenuItemDetailedScreen from '../screens/MenuItemDetailedScreen';
 import CartScreen from "../screens/CartScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import HomeScreen from "../screens/HomeScreen";
+import MenuItemDetailedScreen from '../screens/MenuItemDetailedScreen';
 import OrderDetailsScreen from "../screens/OrderDetailsScreen";
+import OrdersScreen from '../screens/OrdersScreen';
+import ProfileScreen from "../screens/ProfileScreen";
+import RestaurantDetailsScreen from '../screens/RestaurantDetailsScreen';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
+    const { dbUser } = useAuthContext();
+
     return (
         <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-            <Stack.Screen
-                name="HomeTabs"
-                component={HomeTabs}
-            />
+            {dbUser ? (
+                <Stack.Screen
+                    name="HomeTabs"
+                    component={HomeTabs}
+                />) : (
+
+                <Stack.Screen
+                    name="Profile"
+                    component={ProfileScreen}
+                />)}
         </Stack.Navigator>
     )
 }
@@ -28,7 +36,7 @@ const Tab = createBottomTabNavigator();
 
 const HomeTabs = () => {
     return (
-        <Tab.Navigator screenOptions={{headerShown:false, tabBarActiveTintColor:'black' }} >
+        <Tab.Navigator screenOptions={{ headerShown: false, tabBarActiveTintColor: 'black' }} >
             <Tab.Screen
                 name="Home"
                 component={HomeStackNavigator}
@@ -61,7 +69,7 @@ const HomeStack = createNativeStackNavigator();
 const HomeStackNavigator = () => {
     return (
         <HomeStack.Navigator screenOptions={{ headerShown: false }}>
-            <HomeStack.Screen name="Restaurants" component={HomeScreen} options={{headerShown:true}}/>
+            <HomeStack.Screen name="Restaurants" component={HomeScreen} options={{ headerShown: true }} />
             <HomeStack.Screen name="Restaurant" component={RestaurantDetailsScreen} />
             <HomeStack.Screen name="MenuItem" component={MenuItemDetailedScreen} />
             <HomeStack.Screen name="Cart" component={CartScreen} />

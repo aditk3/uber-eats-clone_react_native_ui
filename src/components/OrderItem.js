@@ -1,14 +1,14 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 import tw from 'twrnc'
 
 const OrderItem = ({ order }) => {
     const navigation = useNavigation()
 
     return (
-        <Pressable onPress={()=>navigation.navigate("Order", {id:order.id}) }>
-            <View style={{ flexDirection: 'row', margin: 10, marginHorizontal:20 }}>
+        <Pressable onPress={() => navigation.navigate("Order", { id: order.id })}>
+            <View style={{ flexDirection: 'row', margin: 10, marginHorizontal: 20 }}>
                 <Image
                     source={{ uri: order.Restaurant.image }}
                     style={{ width: 75, height: 75, marginRight: 10, borderRadius: 3 }}
@@ -23,7 +23,7 @@ const OrderItem = ({ order }) => {
                 </View>
             </View>
 
-            <View style={{ backgroundColor: 'lightgrey', height: 1, margin:10, marginHorizontal:20 }} />
+            <View style={{ backgroundColor: 'lightgrey', height: 1, margin: 10, marginHorizontal: 20 }} />
         </Pressable>
     )
 }

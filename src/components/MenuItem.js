@@ -1,6 +1,6 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 
 const MenuItem = ({ dish }) => {
     const navigation = useNavigation()

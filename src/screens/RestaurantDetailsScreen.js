@@ -3,9 +3,11 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { DataStore } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
+
 import MenuItem from '../components/MenuItem';
 import { Dish, Restaurant } from '../models';
 import RestaurantHeader from './RestaurantDetailsScreen/RestaurantHeader';
+
 import styles from './RestaurantDetailsScreen/styles';
 
 const RestaurantDetailsScreen = () => {

@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
 import { useNavigation } from '@react-navigation/native';
+import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import restaurants from '../../assets/data/restaurants.json';
@@ -10,16 +10,16 @@ const restaurant = restaurants[1]
 
 const CartScreen = () => {
     const navigation = useNavigation()
-    
+
     return (
         <View style={styles.page}>
-            <Ionicons 
-            name="arrow-back" 
-            size={30} 
-            color="black" 
-            suppressHighlighting={true}
-            onPress={() => navigation.goBack()}
-            style={{ paddingVertical: 20 }} />
+            <Ionicons
+                name="arrow-back"
+                size={30}
+                color="black"
+                suppressHighlighting={true}
+                onPress={() => navigation.goBack()}
+                style={{ paddingVertical: 20 }} />
 
             <Text style={styles.name}>{restaurant.name}</Text>
 

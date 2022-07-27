@@ -1,10 +1,11 @@
+import { Auth, DataStore } from 'aws-amplify';
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, TextInput } from "react-native";
+import { Alert, Button, StyleSheet, Text, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-import { Auth } from 'aws-amplify';
-
 import tw from "twrnc";
+
+import { useAuthContext } from '../contexts/AuthContext';
+import { User } from '../models';
 
 const Profile = () => {
     const [name, setName] = useState("");
@@ -12,7 +13,24 @@ const Profile = () => {
     const [lat, setLat] = useState("0");
     const [lng, setLng] = useState("0");
 
-    const onSave = () => { };
+    const { sub, setDbUser } = useAuthContext();
+
+    const onSave = async () => {
+        try {
+            const user = await DataStore.save(new User({
+                name,
+                address,
+                lat: parseFloat(lat),
+                lng: parseFloat(lng),
+                sub
+            }));
+
+            setDbUser(user);
+        } catch (error) {
+            Alert.alert("Error", error.message);
+        }
+
+    };
 
     return (
         <SafeAreaView >
