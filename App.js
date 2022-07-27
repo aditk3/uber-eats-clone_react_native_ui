@@ -7,6 +7,8 @@ import config from './src/aws-exports';
 
 import RootNavigator from './src/navigation/Navigators';
 import AuthContextProvider from './src/contexts/AuthContext';
+import CartContextProvider from './src/contexts/CartContext';
+import OrderContextProvider from './src/contexts/OrderContext';
 
 Amplify.configure({
     ...config,
@@ -18,11 +20,17 @@ function App() {
         <NavigationContainer>
 
             <AuthContextProvider>
-                <RootNavigator />
+                <CartContextProvider>
+                    <OrderContextProvider>
+
+                        <RootNavigator />
+
+                    </OrderContextProvider>
+                </CartContextProvider>
             </AuthContextProvider>
 
             <StatusBar style='auto' />
-            
+
         </NavigationContainer>
     );
 }

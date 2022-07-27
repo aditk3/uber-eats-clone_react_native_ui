@@ -5,14 +5,14 @@ const CartItem = ({ dish }) => {
     return (
         <View style={styles.row}>
             <View style={styles.quantityContainer}>
-                <Text>1</Text>
+                <Text>{dish.quantity}</Text>
             </View>
 
             <Text style={[styles.name, { fontSize: 16 }]} numberOfLines={1}>
-                {dish.name}
+                {dish.Dish.name}
             </Text>
 
-            <Text style={{ marginLeft: 'auto', fontSize: 16 }}>${dish.price.toFixed(2)}</Text>
+            <Text style={{ marginLeft: 'auto', fontSize: 16 }}>${dish.Dish.price.toFixed(2)}</Text>
         </View>
     )
 }

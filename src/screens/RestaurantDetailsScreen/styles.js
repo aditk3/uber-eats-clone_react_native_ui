@@ -7,10 +7,10 @@ export default StyleSheet.create({
     image: {
         width: '100%',
         aspectRatio: 25 / 12,
-    },
+    }, 
     backIcon: {
         position: 'absolute',
-        top: 40,
+        top: 51,
         left: 10,
     },
     title: {
@@ -33,5 +33,16 @@ export default StyleSheet.create({
         fontWeight: '600',
         fontSize: 18,
         color: '#686767'
-    }
+    },
+    confirmButton: {
+        backgroundColor: 'black',
+        marginTop: 'auto',
+        alignItems: 'center',
+        padding: 20,
+    },
+    confirmButtonText: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: '600',
+    },
 })

@@ -1,17 +1,8 @@
-type Order @model @auth(rules: [{allow: public}]) {
+type OrderItem @model @auth(rules: [{allow: public}]) {
   id: ID!
-  status: OrderStatus!
-  total: Float!
-  OrderItems: [OrderItem] @hasMany(indexName: "byOrder", fields: ["id"])
-  userID: ID! @index(name: "byUser")
-  restaurantID: ID! @index(name: "byRestaurant")
-}
-
-type Cart @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  CartItems: [CartItem] @hasMany(indexName: "byCart", fields: ["id"])
-  userID: ID! @index(name: "byUser")
-  restaurantID: ID! @index(name: "byRestaurant")
+  quantity: Int!
+  Dish: Dish @hasOne
+  orderID: ID! @index(name: "byOrder")
 }
 
 enum OrderStatus {
@@ -22,11 +13,13 @@ enum OrderStatus {
   COMPLETED
 }
 
-type OrderItem @model @auth(rules: [{allow: public}]) {
+type Order @model @auth(rules: [{allow: public}]) {
   id: ID!
-  quantity: Int!
-  Dish: Dish @hasOne
-  orderID: ID! @index(name: "byOrder")
+  status: OrderStatus!
+  userID: ID! @index(name: "byUser")
+  OrderItems: [OrderItem] @hasMany(indexName: "byOrder", fields: ["id"])
+  Restaurant: Restaurant @hasOne
+  total: Float
 }
 
 type CartItem @model @auth(rules: [{allow: public}]) {
@@ -36,39 +29,45 @@ type CartItem @model @auth(rules: [{allow: public}]) {
   cartID: ID! @index(name: "byCart")
 }
 
-type User @model @auth(rules: [{allow: public}]) {
+type Cart @model @auth(rules: [{allow: public}]) {
   id: ID!
-  name: String!
-  address: String!
-  lat: Float!
-  lng: Float!
-  Carts: [Cart] @hasMany(indexName: "byUser", fields: ["id"])
-  sub: String!
-  Orders: [Order] @hasMany(indexName: "byUser", fields: ["id"])
-}
-
-type Dish @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  name: String!
-  description: String
-  price: Float!
-  image: String
+  CartItems: [CartItem] @hasMany(indexName: "byCart", fields: ["id"])
   restaurantID: ID! @index(name: "byRestaurant")
+  userID: ID! @index(name: "byUser")
 }
 
 type Restaurant @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   image: String!
+  deliveryFee: Float!
   minDeliveryTime: Int!
   maxDeliveryTime: Int!
   rating: Float
-  deliveryFee: Float!
   address: String!
   lat: Float!
   lng: Float!
   Dishes: [Dish] @hasMany(indexName: "byRestaurant", fields: ["id"])
   Carts: [Cart] @hasMany(indexName: "byRestaurant", fields: ["id"])
-  Orders: [Order] @hasMany(indexName: "byRestaurant", fields: ["id"])
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  sub: String!
+  name: String!
+  address: String!
+  lat: Float!
+  lng: Float!
+  Carts: [Cart] @hasMany(indexName: "byUser", fields: ["id"])
+  Orders: [Order] @hasMany(indexName: "byUser", fields: ["id"])
+}
+
+type Dish @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  image: String
+  description: String
+  price: Float!
+  restaurantID: ID! @index(name: "byRestaurant")
 }
  

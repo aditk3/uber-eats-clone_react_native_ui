@@ -1,54 +1,74 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import restaurants from '../../assets/data/restaurants.json';
 import CartItem from '../components/CartItem';
+import { useCartContext } from '../contexts/CartContext';
+import { useOrderContext } from '../contexts/OrderContext';
 
-const restaurant = restaurants[1]
 
 const CartScreen = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation();
+
+    const { restaurant, cartItems, subtotal, total, deliveryFee } = useCartContext();
+    const { createOrder } = useOrderContext();
+
+    const onCreateOrder = async () => {
+        await createOrder();
+        navigation.goBack();
+    };
+
+    if (!restaurant) {
+        return (<ActivityIndicator size='large' style={{ flex: 1 }} />);
+    }
 
     return (
-        <View style={styles.page}>
-            <Ionicons
-                name="arrow-back"
-                size={30}
-                color="black"
-                suppressHighlighting={true}
-                onPress={() => navigation.goBack()}
-                style={{ paddingVertical: 20 }} />
+        <View style={{ flex: 2 }}>
+            <View style={styles.page}>
+                <Ionicons
+                    name="arrow-back"
+                    size={30}
+                    color="black"
+                    suppressHighlighting={true}
+                    onPress={() => navigation.goBack()}
+                    style={{ paddingVertical: 20 }} />
 
-            <Text style={styles.name}>{restaurant.name}</Text>
+                <Text style={styles.name}>{restaurant.name}</Text>
 
-            <Text style={[styles.yourItemsText, { paddingVertical: 10 }]}>Your items</Text>
+                <Text style={[styles.yourItemsText, { paddingVertical: 10 }]}>Your items</Text>
 
-            <FlatList
-                data={restaurant.dishes}
-                showsVerticalScrollIndicator={false}
-                style={{ flex: 2, marginHorizontal: -20 }}
-                renderItem={({ item }) => (<CartItem dish={item} />)} />
+                <FlatList
+                    data={cartItems}
+                    showsVerticalScrollIndicator={false}
+                    style={{ flex: 2, marginHorizontal: -20 }}
+                    renderItem={({ item }) => (<CartItem dish={item} />)} />
+            </View>
 
-            <View style={{ backgroundColor: 'lightgrey', height: 1, marginBottom: 15 }} />
+            <View style={{ backgroundColor: 'lightgrey', height: 1, margin: 15 }} />
 
             <View style={styles.totalsRow}>
                 <Text style={styles.totalsText}>Sub total:</Text>
-                <Text style={{ marginLeft: 'auto', fontSize: 16 }}>$12.95</Text>
+                <Text style={{ marginLeft: 'auto', fontSize: 16 }}>${subtotal.toFixed(2)}</Text>
+            </View>
+
+            <View style={styles.totalsRow}>
+                <Text style={styles.totalsText}>Delivery fee:</Text>
+                <Text style={{ marginLeft: 'auto', fontSize: 16 }}>${deliveryFee.toFixed(2)}</Text>
             </View>
 
             <View style={styles.totalsRow}>
                 <Text style={styles.totalsText}>Total:</Text>
-                <Text style={{ marginLeft: 'auto', fontSize: 16 }}>$12.95</Text>
-            </View>
-
-            <View style={styles.confirmButton}>
-                <Text style={styles.confirmButtonText}>
-                    Next &#8226; $12.95
+                <Text style={{ marginLeft: 'auto', fontSize: 16 }}>
+                    ${total.toFixed(2)}
                 </Text>
             </View>
 
+            <Pressable onPress={onCreateOrder} style={styles.confirmButton}>
+                <Text style={styles.confirmButtonText}>
+                    Next &#8226; ${total.toFixed(2)}
+                </Text>
+            </Pressable>
         </View>
     )
 }
@@ -87,7 +107,7 @@ const styles = StyleSheet.create({
     totalsRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: 7,
+        padding: 10,
     },
     totalsText: {
         fontSize: 16,
@@ -98,6 +118,7 @@ const styles = StyleSheet.create({
         marginTop: 'auto',
         alignItems: 'center',
         padding: 20,
+        marginTop: 10
     },
     confirmButtonText: {
         color: 'white',

@@ -1,10 +1,16 @@
-import { useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import tw from 'twrnc'
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { ActivityIndicator, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import tw from 'twrnc';
 
 const OrderItem = ({ order }) => {
-    const navigation = useNavigation()
+    const navigation = useNavigation();
+
+    console.log(order);
+
+    if (!order) {
+        return (<ActivityIndicator size='large' style={{ flex: 1 }} />);
+    }
 
     return (
         <Pressable onPress={() => navigation.navigate("Order", { id: order.id })}>
@@ -18,7 +24,8 @@ const OrderItem = ({ order }) => {
                     <Text style={[tw`font-600`, { fontSize: 18 }]}>
                         {order.Restaurant.name}
                     </Text>
-                    <Text style={tw`text-gray-500 mt-1 mb-1`}>2 items &#8226; $35.85</Text>
+
+                    <Text style={tw`text-gray-500 mt-1 mb-1`}>{order.Restaurant.address} &#8226; ${order.total.toFixed(2)}</Text>
                     <Text style={tw`text-gray-500`}>{order.createdAt} &#8226; {order.status}</Text>
                 </View>
             </View>

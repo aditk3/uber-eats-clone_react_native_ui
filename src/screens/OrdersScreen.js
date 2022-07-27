@@ -1,11 +1,13 @@
-import React from 'react'
-import { FlatList, Text, View } from 'react-native'
-import tw from 'twrnc'
+import React from 'react';
+import { FlatList, Text, View } from 'react-native';
+import tw from 'twrnc';
 
-import orders from '../../assets/data/orders.json'
-import OrderItem from '../components/OrderItem'
+import { useOrderContext } from '../contexts/OrderContext';
+import OrderItem from '../components/OrderItem';
 
 const OrdersScreen = () => {
+    const { orders } = useOrderContext();
+
     return (
         <View style={{ flex: 1, paddingTop: 70, width: '100%' }}>
             <Text style={[tw`font-600`, { fontSize: 30, textAlign: 'center' }]}>Your Orders</Text>
@@ -18,6 +20,7 @@ const OrdersScreen = () => {
             />
         </View>
     )
-}
+};
 
-export default OrdersScreen
+export default OrdersScreen;
+

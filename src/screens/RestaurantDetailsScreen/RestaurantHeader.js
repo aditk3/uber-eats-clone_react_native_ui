@@ -18,7 +18,7 @@ const RestaurantHeader = ({ restaurant }) => {
                 <Text style={styles.title}>{restaurant.name}</Text>
 
                 <View style={styles.subtitleContainer}>
-                    <Text style={styles.subtitle}>$ &#8226; </Text>
+                    <Text style={styles.subtitle}>${restaurant.deliveryFee.toFixed(1)} &#8226; </Text>
 
                     <View style={{ flexDirection: 'row', alignContent: 'center' }}>
                         <Entypo name="star" size={16} color="#rgb(253, 197, 56)" />

@@ -3,6 +3,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { DataStore } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
+
+import { useCartContext } from '../contexts/CartContext';
 import { Dish } from '../models';
 
 const MenuItemDetailedScreen = () => {
@@ -10,6 +12,8 @@ const MenuItemDetailedScreen = () => {
 
     const route = useRoute();
     const id = route.params?.id;
+
+    const { addDishToCart } = useCartContext();
 
     const [dish, setDish] = useState(null);
     const [quantity, setQuantity] = useState(1);
@@ -35,36 +39,43 @@ const MenuItemDetailedScreen = () => {
     }
 
     const calculateTotal = () => {
-        return quantity * dish.price
+        return quantity * dish.price;
+    }
+
+    const onAddToCart = async () => {
+        await addDishToCart(dish, quantity);
+        navigation.goBack();
     }
 
     return (
-        <View style={styles.page}>
-            <Ionicons
-                name="arrow-back"
-                size={30}
-                color="black"
-                onPress={() => navigation.goBack()}
-                suppressHighlighting={true}
-                style={{ paddingVertical: 20 }} />
+        <View style={{ flex: 2 }}>
+            <View style={styles.page}>
+                <Ionicons
+                    name="arrow-back"
+                    size={30}
+                    color="black"
+                    onPress={() => navigation.goBack()}
+                    suppressHighlighting={true}
+                    style={{ paddingVertical: 20 }} />
 
-            <Text style={styles.name}>{dish.name}</Text>
-            <Text style={styles.description}>{dish.description}</Text>
+                <Text style={styles.name}>{dish.name}</Text>
+                <Text style={styles.description}>{dish.description}</Text>
 
-            <View style={{ backgroundColor: 'lightgrey', height: 1, marginVertical: 20 }} />
+                <View style={{ backgroundColor: 'lightgrey', height: 1, marginVertical: 20 }} />
 
-            <View style={styles.row}>
-                <AntDesign name='minuscircleo' size={60} color='black' onPress={onMinus} suppressHighlighting={true} />
-                <Text style={styles.quantity}>{quantity}</Text>
-                <AntDesign name='pluscircleo' size={60} color='black' onPress={onPlus} suppressHighlighting={true} />
+                <View style={styles.row}>
+                    <AntDesign name='minuscircleo' size={60} color='black' onPress={onMinus} suppressHighlighting={true} />
+                    <Text style={styles.quantity}>{quantity}</Text>
+                    <AntDesign name='pluscircleo' size={60} color='black' onPress={onPlus} suppressHighlighting={true} />
+                </View>
+
             </View>
 
-            <Pressable onPress={() => navigation.navigate("Cart")} style={styles.confirmButton}>
+            <Pressable onPress={onAddToCart} style={styles.confirmButton}>
                 <Text style={styles.confirmButtonText}>
                     Add {quantity} to basket &#8226; ${calculateTotal().toFixed(2)}
                 </Text>
             </Pressable>
-
         </View>
     )
 }
@@ -101,7 +112,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         marginTop: 'auto',
         alignItems: 'center',
-        padding: 20,
+        paddingVertical: 20,
     },
     confirmButtonText: {
         color: 'white',
