@@ -25,7 +25,6 @@ const Profile = () => {
         }
         else {
             await createUser();
-            navigation.goBack();
         }
     };
 

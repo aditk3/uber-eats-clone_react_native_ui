@@ -6,8 +6,6 @@ import tw from 'twrnc';
 const OrderItem = ({ order }) => {
     const navigation = useNavigation();
 
-    console.log(order);
-
     if (!order) {
         return (<ActivityIndicator size='large' style={{ flex: 1 }} />);
     }
