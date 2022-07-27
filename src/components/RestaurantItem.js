@@ -1,24 +1,31 @@
-import React from 'react'
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+
+const DEFAULT_IMAGE = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant3.jpeg';
 
 const RestrauntItem = ({ restaurant }) => {
 
-    const navigation = useNavigation()
+    const navigation = useNavigation();
 
     const handlePress = () => {
-        navigation.navigate('Restaurant', { id: restaurant.id })
+        navigation.navigate('Restaurant', { id: restaurant.id });
     }
 
     return (
         <Pressable onPress={handlePress} style={styles.restaurantContainer}>
-            <Image source={{ uri: restaurant.image, }}
-                style={styles.image} />
+            <Image
+                source={{ uri: restaurant.image.startsWith('http') ? restaurant.image : DEFAULT_IMAGE }}
+                style={styles.image}
+            />
 
             <View style={styles.row}>
                 <View>
                     <Text style={styles.title}>{restaurant.name}</Text>
-                    <Text style={styles.subtitle}>${restaurant.deliveryFee} {restaurant.minDeliveryTime}-{restaurant.maxDeliveryTime} minutes</Text>
+
+                    <Text style={styles.subtitle}>
+                        ${restaurant.deliveryFee.toFixed(2)} &#8226; {restaurant.minDeliveryTime}-{restaurant.maxDeliveryTime} minutes
+                    </Text>
                 </View>
 
                 <View style={styles.rating}>
@@ -35,7 +42,7 @@ export default RestrauntItem
 const styles = StyleSheet.create({
     restaurantContainer: {
         width: '100%',
-        marginVertical: 10,
+        marginVertical: 5,
         backgroundColor: '#9797972a',
         borderRadius: 10,
         padding: 6,

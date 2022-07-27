@@ -1,16 +1,28 @@
 import { AntDesign, Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-
-import restaurants from '../../assets/data/restaurants.json';
-
-const dish = restaurants[0].dishes[0]
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { DataStore } from 'aws-amplify';
+import { Dish } from '../models';
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 
 const MenuItemDetailedScreen = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation();
 
-    const [quantity, setQuantity] = useState(1)
+    const route = useRoute();
+    const id = route.params?.id;
+
+    const [dish, setDish] = useState(null);
+    const [quantity, setQuantity] = useState(1);
+
+    useEffect(() => {
+        if (!id) return;
+
+        DataStore.query(Dish, id).then(setDish);
+    }, [id]);
+
+    if (!dish) {
+        return (<ActivityIndicator size='large' style={{ flex: 1 }} />);
+    }
 
     const onMinus = () => {
         if (quantity > 1) {
@@ -47,7 +59,7 @@ const MenuItemDetailedScreen = () => {
                 <AntDesign name='pluscircleo' size={60} color='black' onPress={onPlus} suppressHighlighting={true} />
             </View>
 
-            <Pressable onPress={()=>navigation.navigate("Cart") } style={styles.confirmButton}>
+            <Pressable onPress={() => navigation.navigate("Cart")} style={styles.confirmButton}>
                 <Text style={styles.confirmButtonText}>
                     Add {quantity} to basket &#8226; ${calculateTotal().toFixed(2)}
                 </Text>

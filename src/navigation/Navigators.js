@@ -1,4 +1,5 @@
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Foundation, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 
@@ -7,6 +8,7 @@ import OrdersScreen from '../screens/OrdersScreen';
 import RestaurantDetailsScreen from '../screens/RestaurantDetailsScreen';
 import MenuItemDetailedScreen from '../screens/MenuItemDetailedScreen';
 import CartScreen from "../screens/CartScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 import OrderDetailsScreen from "../screens/OrderDetailsScreen";
 
 const Stack = createNativeStackNavigator();
@@ -22,11 +24,11 @@ const RootNavigator = () => {
     )
 }
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 const HomeTabs = () => {
     return (
-        <Tab.Navigator barStyle={{ backgroundColor: 'white' }} >
+        <Tab.Navigator screenOptions={{headerShown:false, tabBarActiveTintColor:'black' }} >
             <Tab.Screen
                 name="Home"
                 component={HomeStackNavigator}
@@ -45,7 +47,7 @@ const HomeTabs = () => {
 
             <Tab.Screen
                 name="Profile"
-                component={OrdersScreen}
+                component={ProfileScreen}
                 options={{
                     tabBarIcon: ({ color }) => <FontAwesome5 name="user-alt" size={24} color={color} />
                 }}
@@ -59,7 +61,7 @@ const HomeStack = createNativeStackNavigator();
 const HomeStackNavigator = () => {
     return (
         <HomeStack.Navigator screenOptions={{ headerShown: false }}>
-            <HomeStack.Screen name="Restaurants" component={HomeScreen} />
+            <HomeStack.Screen name="Restaurants" component={HomeScreen} options={{headerShown:true}}/>
             <HomeStack.Screen name="Restaurant" component={RestaurantDetailsScreen} />
             <HomeStack.Screen name="MenuItem" component={MenuItemDetailedScreen} />
             <HomeStack.Screen name="Cart" component={CartScreen} />
@@ -72,7 +74,7 @@ const OrdersStack = createNativeStackNavigator();
 const OrdersStackNavigator = () => {
     return (
         <OrdersStack.Navigator screenOptions={{ headerShown: false }}>
-            <OrdersStack.Screen name="Orders" component={OrdersScreen} />
+            <OrdersStack.Screen name="Orders_Stack" component={OrdersScreen} />
             <OrdersStack.Screen name="Order" component={OrderDetailsScreen} />
         </OrdersStack.Navigator>
     )

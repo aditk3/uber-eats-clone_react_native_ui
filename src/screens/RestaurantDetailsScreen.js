@@ -1,27 +1,38 @@
-import { useNavigation, useRoute } from '@react-navigation/native'
-import React from 'react'
-import { FlatList, View } from 'react-native'
-import restaurants from '../../assets/data/restaurants.json'
-import MenuItem from '../components/MenuItem'
-import RestaurantHeader from './RestaurantDetailsScreen/header'
-import styles from './RestaurantDetailsScreen/styles'
-import { Ionicons } from '@expo/vector-icons'
-
-const restaurant = restaurants[0]
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { DataStore } from 'aws-amplify';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, FlatList, View } from 'react-native';
+import MenuItem from '../components/MenuItem';
+import { Dish, Restaurant } from '../models';
+import RestaurantHeader from './RestaurantDetailsScreen/RestaurantHeader';
+import styles from './RestaurantDetailsScreen/styles';
 
 const RestaurantDetailsScreen = () => {
-    const route = useRoute()
-    const navigation = useNavigation()
+    const [restaurant, setRestaurant] = useState(null);
+    const [dishes, setDishes] = useState([]);
 
-    const id = route.params?.id
+    const route = useRoute();
+    const id = route.params?.id;
 
-    console.log(id)
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        if (!id) return;
+
+        DataStore.query(Restaurant, id).then(setRestaurant);
+        DataStore.query(Dish, (dish) => dish.restaurantID('eq', id)).then(setDishes);
+    }, [id]);
+
+    if (!restaurant) {
+        return (<ActivityIndicator size='large' style={{ flex: 1 }} />);
+    }
 
     return (
         <View style={styles.page}>
             <FlatList
                 ListHeaderComponent={() => <RestaurantHeader restaurant={restaurant} />}
-                data={restaurant.dishes}
+                data={dishes}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
                     <MenuItem dish={item} />
